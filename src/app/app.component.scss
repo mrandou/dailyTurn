@@ -1,0 +1,131 @@
+.wrapper {
+    height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    &__arcade {
+        position: relative;
+        .picture {
+            margin-bottom: 10px;
+            pointer-events: none;
+            user-select: none;
+            height: 95vh;
+        }
+        .joystic-button {
+            position: absolute;
+            top: 40%;
+            right: 22%;
+            width: 105px;
+            height: 120px;
+            background-color: transparent;
+            border: none;
+            cursor: grab;
+        }
+        .coin-button {
+            position: absolute;
+            top: 68%;
+            right: 20%;
+            width: 60px;
+            height: 60px;
+            border: none;
+            background-color: transparent;
+            cursor: grab;
+        }
+        &__screen {
+            position: absolute;
+            width: 53%;
+            height: 23%;
+            border-radius: 15px;
+            top: 15%;
+            right: 22.5%;
+            background-image: url("/assets/synthwave.gif");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .user-section {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+}
+
+.wrapper-screen {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    .screen {
+        width: 35vw;
+        height: 35vh;
+        max-width: 500px;
+        max-height: 400px;
+        background: #4c4c4c;
+        border: solid 4px #b1b1b1;
+        padding: 10px;
+        color: #06ff06;
+    }
+}
+
+.random-user {
+    width: 30%;
+    height: 50%;
+    border-radius: 10px;
+    filter: drop-shadow(0px 0px 20px white);
+}
+
+.select-title {
+    margin-bottom: 10px;
+}
+
+.player-name {
+    margin: 3px 15px;
+    color: #06ff06;
+    &:hover {
+        color: #949494;
+    }
+}
+
+.player-off {
+    color: #949494;
+}
+
+.player-game-over {
+    color: #949494;
+    text-decoration: line-through;
+}
+
+.insert-coin {
+    text-align: center;
+    .coin {
+        font-size: 16px;
+        color: yellow;
+        animation: infinite blink 0.7s;
+    }
+    .game-over {
+        font-size: 28px;
+        margin-bottom: 5px;
+        color: red;
+    }
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.welcome {
+    font-size: 20px;
+    display: flex
+}
