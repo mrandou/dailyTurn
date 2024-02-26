@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Pictures } from './models/items';
 import { Player, PlayersNames } from './models/players';
 import { AudioService } from './services/audio.service';
 
@@ -8,8 +9,8 @@ import { AudioService } from './services/audio.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public arcadePicture: string = "assets/arcade-1.png";
-  public randomPicture: string = "assets/item-box.gif";
+  public arcadePicture: string = Pictures.ARCADE;
+  public randomPicture: string = Pictures.BOX;
   public selectedPicture?: string;
   public allPlayers: Player[] = [];
   public players: Player[] = [];
@@ -113,16 +114,18 @@ export class AppComponent {
     this.selectedPlayer = undefined;
     this.selectedPicture = ""
     this.gameOn = false;
-    this.randomPicture = "assets/item-box.gif"
+    this.randomPicture = Pictures.BOX;
   }
 
   private loadImages(): void {
-    for (let player of this.allPlayers){
+    const box = new Image();
+    box.src = Pictures.BOX;
+    for (let player of this.allPlayers) {
       let img = new Image();
       img.onload = () => {
         console.log(`${img.src} loaded`)
       }
-      img.src = this.getPlayerPicture(player.name)
+      img.src = this.getPlayerPicture(player.name);
     }
   }
   
