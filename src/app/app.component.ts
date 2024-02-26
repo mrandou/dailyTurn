@@ -19,6 +19,7 @@ export class AppComponent {
 
   constructor(private audioService: AudioService) {
     this.initPlayers();
+    this.loadImages();
   }
 
   private initPlayers(): void {
@@ -115,4 +116,14 @@ export class AppComponent {
     this.randomPicture = "assets/item-box.gif"
   }
 
+  private loadImages(): void {
+    for (let player of this.allPlayers){
+      let img = new Image();
+      img.onload = () => {
+        console.log(`${img.src} loaded`)
+      }
+      img.src = this.getPlayerPicture(player.name)
+    }
+  }
+  
 }
