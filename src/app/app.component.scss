@@ -61,12 +61,13 @@
     align-items: center;
     .screen {
         width: 35vw;
-        height: 35vh;
+        height: 40vh;
         max-width: 500px;
         max-height: 400px;
         background: #4c4c4c;
         border: solid 4px #b1b1b1;
         padding: 10px;
+        font-size: 15px;
         color: #06ff06;
     }
 }
@@ -76,6 +77,7 @@
     height: 50%;
     border-radius: 10px;
     filter: drop-shadow(0px 0px 20px white);
+    animation: infinite vibrate 1.5s;
 }
 
 .select-title {
@@ -85,16 +87,16 @@
 .player-name {
     margin: 3px 15px;
     color: #06ff06;
+    cursor: pointer;
     &:hover {
-        color: #949494;
+        text-decoration: underline;
+    }
+    &:active {
+        animation: 0.2s blink infinite;
     }
 }
 
 .player-off {
-    color: #949494;
-}
-
-.player-game-over {
     color: #949494;
     text-decoration: line-through;
 }
@@ -124,6 +126,28 @@
         opacity: 0;
     }
 }
+
+@keyframes vibrate {
+    0% {
+      transform: translate(0);
+    }
+    20% {
+      transform: translate(-2px, 2px);
+    }
+    40% {
+      transform: translate(-2px, -2px);
+    }
+    60% {
+      transform: translate(2px, 2px);
+    }
+    80% {
+      transform: translate(2px, -2px);
+    }
+    100% {
+      transform: translate(0);
+    }
+  }
+  
 
 .welcome {
     font-size: 20px;

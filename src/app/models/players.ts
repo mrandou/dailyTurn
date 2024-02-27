@@ -18,5 +18,4 @@ export const PlayersNames: string[] = [
 export interface Player {
   name: string;
   isAvailable: boolean;
-  isOut: boolean;
 }

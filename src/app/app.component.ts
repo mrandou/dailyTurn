@@ -26,7 +26,7 @@ export class AppComponent {
   private initPlayers(): void {
     this.allPlayers = [];
     PlayersNames.forEach(name => {
-      this.allPlayers.push({ name, isAvailable: true, isOut: false });
+      this.allPlayers.push({ name, isAvailable: true });
     })
     this.players = this.allPlayers;
   }
@@ -85,8 +85,8 @@ export class AppComponent {
   }
 
   private playJoysticAnimation(): void {
-    this.arcadePicture = "assets/arcade-2.png";
-    setTimeout(() => this.arcadePicture = "assets/arcade-1.png", 200);
+    this.arcadePicture = Pictures.ARCADE_ON;
+    setTimeout(() => this.arcadePicture = Pictures.ARCADE, 200);
   }
 
   private playRandomSelectionAnimation(): void {
@@ -104,7 +104,7 @@ export class AppComponent {
 
   private removePlayer(player: Player): void {
     this.players = this.players.filter(p => p != player);
-    this.allPlayers[this.allPlayers.indexOf(player)].isOut = true;
+    this.allPlayers[this.allPlayers.indexOf(player)].isAvailable = false;
   }
 
   private getPlayerPicture(player: string): string {
