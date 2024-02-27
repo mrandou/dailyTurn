@@ -59,7 +59,7 @@ export class AppComponent {
       const randomIndex = this.getRandomNumber(this.players.length - 1);
       this.selectedPlayer = this.players[randomIndex];
       this.selectedPicture = this.getPlayerPicture(this.selectedPlayer.name);
-    }, 3800);
+    }, 2000);
   }
 
   public switchPlayer(index: number): void {
@@ -74,6 +74,14 @@ export class AppComponent {
   public addCoin(): void {
     this.audioService.insertCoin();
     setTimeout(() => this.coins++, 1500);
+  }
+
+  public switchAudio(): void {
+    this.audioService.switchAudio();
+  }
+
+  public changeAudioVolume(up: boolean) {
+    this.audioService.changeAudioVolume(up);
   }
 
   private playJoysticAnimation(): void {

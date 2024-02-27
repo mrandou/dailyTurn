@@ -7,6 +7,8 @@ import { AmbiantMusic, Sounds } from '../models/sounds';
 export class AudioService {
   private selectionAudio: HTMLAudioElement;
   private ambiantAudio?: HTMLAudioElement;
+  private isMuted: boolean = false;
+  private volume: number = 0.025;
 
   constructor() { 
     this.selectionAudio = this.loadAudio(Sounds.PLAYER_SELECTION);
@@ -33,8 +35,7 @@ export class AudioService {
   private playAmbiantMusic(): void {
     const random = Math.floor(Math.random() * 3)
     this.ambiantAudio = this.loadAudio(Object.values(AmbiantMusic)[random]);
-    //  TO DO -> play at stat, play random song, play all sounds, loop 
-    this.ambiantAudio.volume = 0.05;
+    this.ambiantAudio.volume = this.volume;
     this.ambiantAudio.play();
   }
 
@@ -43,5 +44,17 @@ export class AudioService {
     audio.src = audioUrl;
     audio.load();
     return audio;
+  }
+
+  public changeAudioVolume(up: boolean): void {
+    up ? this.volume += 0.025
+       : this.volume -= 0.025
+    if (this.ambiantAudio)
+      this.ambiantAudio.volume = this.volume;
+  }
+
+  public switchAudio() {
+    this.isMuted = !this.isMuted;
+    this.isMuted && this.ambiantAudio ? this.ambiantAudio.volume = 0 : this.ambiantAudio!.volume = this.volume / 2;
   }
 }
