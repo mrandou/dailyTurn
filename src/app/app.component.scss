@@ -61,7 +61,7 @@
     align-items: center;
     .screen {
         width: 35vw;
-        height: 40vh;
+        height: 50vh;
         max-width: 500px;
         max-height: 400px;
         background: #4c4c4c;
@@ -69,6 +69,7 @@
         padding: 10px;
         font-size: 15px;
         color: #06ff06;
+        overflow: auto;
     }
 }
 
