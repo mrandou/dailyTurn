@@ -71,6 +71,19 @@
         color: #06ff06;
         overflow: auto;
     }
+
+    .screen::-webkit-scrollbar-track {
+        background-color: #b1b1b1;
+    }
+    
+    .screen::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .screen::-webkit-scrollbar-thumb {
+        background-color: #06ff06;
+    }
+  
 }
 
 .random-user {
