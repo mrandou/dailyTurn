@@ -56,7 +56,7 @@ export class AppComponent {
     this.playRandomSelectionAnimation();
     setTimeout(() => {
       this.gameOn = false;
-      const randomIndex = this.getRandomNumber(this.players.length - 1);
+      const randomIndex = this.getRandomNumber(this.players.length);
       this.selectedPlayer = this.players[randomIndex];
       this.selectedPicture = this.getPlayerPicture(this.selectedPlayer.name);
     }, 2000);
