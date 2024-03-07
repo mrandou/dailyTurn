@@ -10,6 +10,7 @@ export const PlayersNames: string[] = [
   "Maxime",
   "Mehdi",
   "Omar",
+  "Rawan",
   "Sylvain",
   "Yi-Ching",
   'Yichao'
