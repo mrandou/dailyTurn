@@ -8,7 +8,7 @@ export class AudioService {
   private selectionAudio: HTMLAudioElement;
   private ambiantAudio?: HTMLAudioElement;
   private isMuted: boolean = false;
-  private volume: number = 0.025;
+  private volume: number = 0.005;
 
   constructor() { 
     this.selectionAudio = this.loadAudio(Sounds.PLAYER_SELECTION);
