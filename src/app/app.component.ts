@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Pictures } from './models/items';
-import { Player, PlayersNames } from './models/players';
+import { Player, Players } from './models/players';
 import { AudioService } from './services/audio.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class AppComponent {
   public allPlayers: Player[] = [];
   public players: Player[] = [];
   private gameOn: boolean = false
-  private selectedPlayer?: Player;;
+  public selectedPlayer?: Player;;
   public coins: number = 0;
 
   constructor(private audioService: AudioService) {
@@ -24,11 +24,8 @@ export class AppComponent {
   }
 
   private initPlayers(): void {
-    this.allPlayers = [];
-    PlayersNames.forEach(name => {
-      this.allPlayers.push({ name, isAvailable: true });
-    })
-    this.players = this.allPlayers;
+    this.allPlayers = Players;
+    this.players = this.allPlayers.filter(p => p.isAvailable);
   }
 
   public startGame(): void {

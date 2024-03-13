@@ -10,6 +10,9 @@
         <img *ngIf="!selectedPicture; else selectedPlayerBlock" class="random-user" [src]="randomPicture" />
         <ng-template #selectedPlayerBlock>
           <img class="random-user" [src]="selectedPicture">
+          <div class="selected-player">
+            {{ selectedPlayer?.name }}
+          </div>
         </ng-template>
       </div>
       <ng-template #insertCoinBlock>

@@ -86,14 +86,6 @@
   
 }
 
-.random-user {
-    width: 30%;
-    height: 50%;
-    border-radius: 10px;
-    filter: drop-shadow(0px 0px 20px white);
-    animation: infinite vibrate 1.5s;
-}
-
 .select-title {
     margin-bottom: 10px;
 }
@@ -177,4 +169,22 @@
         background: none;
         border: none;
     }
+}
+
+.selected-player {
+    color: white;
+    position: absolute;
+    font-weight: bold;
+    font-size: 20px;
+    bottom: 10px;
+    text-shadow: 4px 1px #b03165;
+    animation: 0.04s blink infinite;
+}
+
+.random-user {
+    width: 30%;
+    height: 50%;
+    border-radius: 10px;
+    filter: drop-shadow(0px 0px 20px white);
+    animation: infinite vibrate 1.5s;
 }
