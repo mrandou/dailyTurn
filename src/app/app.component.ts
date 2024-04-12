@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ARCARDE_COLOR } from './models/arcade';
 import { Pictures } from './models/items';
 import { Player, Players } from './models/players';
 import { AudioService } from './services/audio.service';
@@ -17,10 +18,17 @@ export class AppComponent {
   private gameOn: boolean = false
   public selectedPlayer?: Player;;
   public coins: number = 0;
+  public randomColor = "";
 
   constructor(private audioService: AudioService) {
+    this.randomColor = this.getRandomArcadeColor();
     this.initPlayers();
     this.loadImages();
+  }
+
+  private getRandomArcadeColor(): string {
+    const number = ARCARDE_COLOR[this.getRandomNumber(ARCARDE_COLOR.length - 1)];
+    return `hue-rotate(${number}deg)`
   }
 
   private initPlayers(): void {

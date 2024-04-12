@@ -1,7 +1,7 @@
 <div class="wrapper">
   <div class="wrapper__arcade">
   
-    <img class="picture" [src]="arcadePicture" alt="arcade">
+    <img class="picture" [src]="arcadePicture" [ngStyle]="{'filter': randomColor}" alt="arcade">
     <button class="joystic-button" (click)="startGame()"></button>
     <button class="coin-button" (click)="addCoin()"></button>
 
