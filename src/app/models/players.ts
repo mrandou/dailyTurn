@@ -1,23 +1,24 @@
 export const Players: Player[] = [
-  { name: "Adrien", isAvailable: true },
-  { name: "Arnaud", isAvailable: true },
-  { name: "Aymen", isAvailable: true },
-  { name: "Bertrand", isAvailable: true },
-  { name: "Charles", isAvailable: true },
-  { name: "Elsa", isAvailable: true },
-  { name: "Gildas", isAvailable: true },
-  { name: "Julien", isAvailable: false },
-  { name: "Mathieu", isAvailable: true },
-  { name: "Maxime", isAvailable: true },
-  { name: "Mehdi", isAvailable: true },
-  { name: "Omar", isAvailable: true },
-  { name: "Rawan", isAvailable: false },
-  { name: "Sylvain", isAvailable: true },
-  { name: "Yi-Ching", isAvailable: true },
-  { name: 'Yichao', isAvailable: true }
+  { name: "Adrien", isAvailable: true, picture: "" },
+  { name: "Arnaud", isAvailable: true, picture: "" },
+  { name: "Aymen", isAvailable: true, picture: "" },
+  { name: "Bertrand", isAvailable: true, picture: "" },
+  { name: "Charles", isAvailable: true, picture: "" },
+  { name: "Elsa", isAvailable: true, picture: "" },
+  { name: "Gildas", isAvailable: true, picture: "" },
+  { name: "Julien", isAvailable: false, picture: "" },
+  { name: "Mathieu", isAvailable: true, picture: "" },
+  { name: "Maxime", isAvailable: true, picture: "" },
+  { name: "Mehdi", isAvailable: true, picture: "" },
+  { name: "Omar", isAvailable: true, picture: "" },
+  { name: "Rawan", isAvailable: false, picture: "" },
+  { name: "Sylvain", isAvailable: true, picture: "" },
+  { name: "Yi-Ching", isAvailable: true, picture: "" },
+  { name: 'Yichao', isAvailable: true, picture: "" }
 ]
 
 export interface Player {
   name: string;
   isAvailable: boolean;
+  picture: string;
 }

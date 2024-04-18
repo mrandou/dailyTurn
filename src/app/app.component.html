@@ -7,11 +7,12 @@
 
     <div class="wrapper__arcade__screen">
       <div *ngIf="coins > 0; else insertCoinBlock" class="user-section">
-        <img *ngIf="!selectedPicture; else selectedPlayerBlock" class="random-user" [src]="randomPicture" />
+        <img *ngIf="!currentSelectedPlayer; else selectedPlayerBlock" class="selected-player" [src]="randomPicture" />
         <ng-template #selectedPlayerBlock>
-          <img class="random-user" [src]="selectedPicture">
-          <div class="selected-player">
-            {{ selectedPlayer?.name }}
+          <img class="selected-player" [src]="currentSelectedPlayer?.picture">
+          <img class="next-player" *ngIf="nextSelectedPlayer" [src]="nextSelectedPlayer?.picture">
+          <div class="selected-player-name">
+            {{ currentSelectedPlayer?.name }}
           </div>
         </ng-template>
       </div>
@@ -31,7 +32,7 @@
         <div 
           *ngFor="let player of allPlayers; let i = index" 
           class="player-name" 
-          [ngClass]="{ 'player-off': !player.isAvailable }"
+          [ngClass]="{ 'player-off': !player.isAvailable, 'current': player === currentSelectedPlayer, 'next': player === nextSelectedPlayer }"
           (click)="switchPlayer(i)"
         >
           {{ player.name }}

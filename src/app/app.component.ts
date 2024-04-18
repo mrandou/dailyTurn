@@ -12,13 +12,13 @@ import { AudioService } from './services/audio.service';
 export class AppComponent {
   public arcadePicture: string = Pictures.ARCADE;
   public randomPicture: string = Pictures.BOX;
-  public selectedPicture?: string;
   public allPlayers: Player[] = [];
   public players: Player[] = [];
-  private gameOn: boolean = false
-  public selectedPlayer?: Player;;
+  public currentSelectedPlayer?: Player;
+  public nextSelectedPlayer?: Player;
   public coins: number = 0;
   public randomColor = "";
+  public isLastPlayer: boolean = false;
 
   constructor(private audioService: AudioService) {
     this.randomColor = this.getRandomArcadeColor();
@@ -27,44 +27,61 @@ export class AppComponent {
   }
 
   private getRandomArcadeColor(): string {
-    const number = ARCARDE_COLOR[this.getRandomNumber(ARCARDE_COLOR.length - 1)];
+    const number = ARCARDE_COLOR[this.getRandomNumber(ARCARDE_COLOR.length)];
     return `hue-rotate(${number}deg)`
   }
 
   private initPlayers(): void {
     this.allPlayers = Players;
-    this.players = this.allPlayers.filter(p => p.isAvailable);
+    this.players = this.allPlayers.filter(p => {
+      p.picture = this.getPlayerPicture(p.name);
+      return p.isAvailable;
+    });
   }
 
   public startGame(): void {
     this.playJoysticAnimation();
-    if (this.gameOn)
-      return;
+
+    if (!this.canContinue()) return;
+
+    this.startNewSelection();
+  }
+
+  private canContinue(): boolean {
+    if (this.isLastPlayer)
+    {
+      this.isLastPlayer = false;
+      this.currentSelectedPlayer = this.nextSelectedPlayer;
+      this.nextSelectedPlayer = undefined;
+      return false;
+    }
     if (!this.players.length || this.coins < 1)
     {
-      this.gameOver()
-      return ;
+      this.gameOver();
+      return false
     }
-    if (this.selectedPlayer)
-      this.removePlayer(this.selectedPlayer)
-    this.selectedPicture = "";
-    this.gameOn = true;
-    if (this.players.length === 1)
-    {
-      this.selectedPlayer = this.players[0];
-      this.selectedPicture = this.getPlayerPicture(this.selectedPlayer.name);
-      this.audioService.playSurprise();
-      this.removePlayer(this.selectedPlayer)
-      this.gameOn = false;
-      return ;
-    }
-    this.playRandomSelectionAnimation();
-    setTimeout(() => {
-      this.gameOn = false;
-      const randomIndex = this.getRandomNumber(this.players.length);
-      this.selectedPlayer = this.players[randomIndex];
-      this.selectedPicture = this.getPlayerPicture(this.selectedPlayer.name);
-    }, 2000);
+    return true;
+  }
+
+  private startNewSelection(): void {
+    if (!this.currentSelectedPlayer) //In Game
+      this.currentSelectedPlayer = this.getRandomPlayer();
+
+    
+    if (this.nextSelectedPlayer)
+      this.currentSelectedPlayer = this.nextSelectedPlayer;
+
+    if (!this.isLastPlayer)
+      this.nextSelectedPlayer = this.getRandomPlayer();
+  }
+
+  private getRandomPlayer(): Player {
+    const randomIndex = this.getRandomNumber(this.players.length);
+    const player = this.players[randomIndex];
+    this.removePlayer(player);
+    if (!this.players.length)
+      this.isLastPlayer = true;
+    return player;
   }
 
   public switchPlayer(index: number): void {
@@ -94,19 +111,6 @@ export class AppComponent {
     setTimeout(() => this.arcadePicture = Pictures.ARCADE, 200);
   }
 
-  private playRandomSelectionAnimation(): void {
-    let index = 0;
-    this.audioService.playSelection();
-    const interval = setInterval(() => {
-      if (!this.gameOn)
-        clearInterval(interval);
-      this.randomPicture = this.getPlayerPicture(this.players[index].name);
-      index++;
-      if (index >= this.players.length)
-        index = 0;
-    }, 50);
-  }
-
   private removePlayer(player: Player): void {
     this.players = this.players.filter(p => p != player);
     this.allPlayers[this.allPlayers.indexOf(player)].isAvailable = false;
@@ -122,11 +126,11 @@ export class AppComponent {
 
   private gameOver(): void {
     this.coins = 0;
+    this.isLastPlayer = false;
     this.audioService.playGameOver();
+    this.currentSelectedPlayer = undefined;
+    this.nextSelectedPlayer = undefined;
     this.initPlayers();
-    this.selectedPlayer = undefined;
-    this.selectedPicture = ""
-    this.gameOn = false;
     this.randomPicture = Pictures.BOX;
   }
 
