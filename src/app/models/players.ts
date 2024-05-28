@@ -1,5 +1,6 @@
 export const Players: Player[] = [
   { name: "Adrien", isAvailable: true, picture: "" },
+  { name: "Alexis", isAvailable: true, picture: "" },
   { name: "Arnaud", isAvailable: true, picture: "" },
   { name: "Aymen", isAvailable: true, picture: "" },
   { name: "Bertrand", isAvailable: true, picture: "" },
@@ -12,7 +13,7 @@ export const Players: Player[] = [
   { name: "Mehdi", isAvailable: true, picture: "" },
   { name: "Omar", isAvailable: true, picture: "" },
   { name: "Rawan", isAvailable: false, picture: "" },
-  { name: "Sylvain", isAvailable: true, picture: "" },
+  { name: "Sylvain", isAvailable: false, picture: "" },
   { name: "Yi-Ching", isAvailable: true, picture: "" },
   { name: 'Yichao', isAvailable: true, picture: "" }
 ]
