@@ -58,7 +58,8 @@
 .wrapper-screen {
     height: 100%;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
     .screen {
         width: 35vw;
         height: 50vh;
@@ -258,3 +259,26 @@
     }
   }
   
+  .selection-buttons {
+    margin-top: -20px;
+    padding: 10px;
+    display: flex;
+    .wrapper-button {
+      display: flex;
+      .radio {
+        width: 15px;
+        height: 15px;
+        border-radius: 125px;
+        background-color: #d8d8d8;
+        border: solid 2px #b1b1b1;
+      }
+      button {
+        background: transparent;
+        border: none;
+        margin-right: 10px;
+      }
+      .selected-squad {
+        background-color: #06ff06;
+      }
+    }
+  }

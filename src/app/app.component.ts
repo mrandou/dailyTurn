@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ARCARDE_COLOR } from './models/arcade';
 import { Pictures } from './models/items';
-import { Player, Players } from './models/players';
+import { Player, Players, SelectionGroup, Squads, SquadSelection } from './models/players';
 import { AudioService } from './services/audio.service';
 
 @Component({
@@ -19,9 +19,12 @@ export class AppComponent {
   public coins: number = 0;
   public randomColor = "";
   public isLastPlayer: boolean = false;
+  public squadSelection: SquadSelection[] = SelectionGroup
+  public selectedSquad: Squads;
 
   constructor(private audioService: AudioService) {
     this.randomColor = this.getRandomArcadeColor();
+    this.selectedSquad = Squads.ALL;
     this.initPlayers();
     this.loadImages();
   }
@@ -36,6 +39,14 @@ export class AppComponent {
     this.players = this.allPlayers.filter(p => {
       p.picture = this.getPlayerPicture(p.name);
       return p.isAvailable;
+    });
+  }
+
+  public selectSquad(squad: Squads): void {
+    this.selectedSquad = squad;
+    this.players = this.allPlayers.filter((p, index) => { 
+      this.allPlayers[index].isAvailable = (p.squad === squad) || squad === Squads.ALL;
+      return p.squad === squad 
     });
   }
 

@@ -25,7 +25,12 @@
     </div>
   </div>
 
-  <div class="wrapper-screen">
+<div class="wrapper-screen">
+    <div class="selection-buttons" >
+      <div *ngFor="let squad of squadSelection" class="wrapper-button" (click)="selectSquad(squad.squad)">
+        <div class="radio" [ngClass]="{'selected-squad': selectedSquad === squad.squad}"></div><button [disabled]="!coins">{{ squad.name }}</button>
+      </div>
+    </div>
     <div class="screen">
       <div *ngIf="coins > 0; else welcomeBlock">
         <div class="select-title">> Select player here</div>
