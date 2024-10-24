@@ -7,7 +7,7 @@ import { AudioService } from './services/audio.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   public arcadePicture: string = Pictures.ARCADE;
@@ -17,7 +17,7 @@ export class AppComponent {
   public currentSelectedPlayer?: Player;
   public nextSelectedPlayer?: Player;
   public coins: number = 0;
-  public randomColor = "";
+  public randomColor = '';
   public isLastPlayer: boolean = false;
 
   constructor(private audioService: AudioService) {
@@ -27,13 +27,18 @@ export class AppComponent {
   }
 
   private getRandomArcadeColor(): string {
-    const number = ARCARDE_COLOR[this.getRandomNumber(ARCARDE_COLOR.length)];
-    return `hue-rotate(${number}deg)`
+    const colors = ARCARDE_COLOR[this.getRandomNumber(ARCARDE_COLOR.length)];
+    this.changeBodyBackground(colors.background);
+    return `hue-rotate(${colors.arcade}deg)`;
+  }
+
+  private changeBodyBackground(color: string): void {
+    document.body.style.backgroundColor = color;
   }
 
   private initPlayers(): void {
     this.allPlayers = Players;
-    this.players = this.allPlayers.filter(p => {
+    this.players = this.allPlayers.filter((p) => {
       p.picture = this.getPlayerPicture(p.name);
       return p.isAvailable;
     });
@@ -48,39 +53,35 @@ export class AppComponent {
   }
 
   private canContinue(): boolean {
-    if (this.isLastPlayer)
-    {
+    if (this.isLastPlayer) {
       this.isLastPlayer = false;
       this.currentSelectedPlayer = this.nextSelectedPlayer;
       this.nextSelectedPlayer = undefined;
       return false;
     }
-    if (!this.players.length || this.coins < 1)
-    {
+    if (!this.players.length || this.coins < 1) {
       this.gameOver();
-      return false
+      return false;
     }
     return true;
   }
 
   private startNewSelection(): void {
-    if (!this.currentSelectedPlayer) //In Game
+    if (!this.currentSelectedPlayer)
+      //In Game
       this.currentSelectedPlayer = this.getRandomPlayer();
 
-    
     if (this.nextSelectedPlayer)
       this.currentSelectedPlayer = this.nextSelectedPlayer;
 
-    if (!this.isLastPlayer)
-      this.nextSelectedPlayer = this.getRandomPlayer();
+    if (!this.isLastPlayer) this.nextSelectedPlayer = this.getRandomPlayer();
   }
 
   private getRandomPlayer(): Player {
     const randomIndex = this.getRandomNumber(this.players.length);
     const player = this.players[randomIndex];
     this.removePlayer(player);
-    if (!this.players.length)
-      this.isLastPlayer = true;
+    if (!this.players.length) this.isLastPlayer = true;
     return player;
   }
 
@@ -88,9 +89,8 @@ export class AppComponent {
     const player = this.allPlayers[index];
     this.allPlayers[index].isAvailable = !player.isAvailable;
     if (this.players.includes(player))
-      this.players = this.players.filter(p => p != player);
-    else
-      this.players.push(player);
+      this.players = this.players.filter((p) => p != player);
+    else this.players.push(player);
   }
 
   public addCoin(): void {
@@ -108,11 +108,11 @@ export class AppComponent {
 
   private playJoysticAnimation(): void {
     this.arcadePicture = Pictures.ARCADE_ON;
-    setTimeout(() => this.arcadePicture = Pictures.ARCADE, 200);
+    setTimeout(() => (this.arcadePicture = Pictures.ARCADE), 200);
   }
 
   private removePlayer(player: Player): void {
-    this.players = this.players.filter(p => p != player);
+    this.players = this.players.filter((p) => p != player);
     this.allPlayers[this.allPlayers.indexOf(player)].isAvailable = false;
   }
 
@@ -121,7 +121,7 @@ export class AppComponent {
   }
 
   private getRandomNumber(max: number) {
-     return Math.floor(Math.random() * max);
+    return Math.floor(Math.random() * max);
   }
 
   private gameOver(): void {
@@ -140,10 +140,9 @@ export class AppComponent {
     for (let player of this.allPlayers) {
       let img = new Image();
       img.onload = () => {
-        console.log(`${img.src} loaded`)
-      }
+        console.log(`${img.src} loaded`);
+      };
       img.src = this.getPlayerPicture(player.name);
     }
   }
-  
 }
