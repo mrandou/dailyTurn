@@ -1,12 +1,14 @@
 export const ARCARDE_COLOR = [
-   COLORS.CYAN,
-   COLORS.PINK,
-   COLORS.BRONZE,
-   COLORS.GREEN
-]
+  COLORS.BRONZE,
+  COLORS.PINK,
+  COLORS.BRONZE,
+  COLORS.GREEN,
+  COLORS.BLUE,
+];
 const enum COLORS {
-    CYAN = 0,
-    PINK = 110,
-    BRONZE = 190,
-    GREEN = 275,
+  BRONZE = 0,
+  PINK = 260,
+  CYAN = 140,
+  GREEN = 70,
+  BLUE = 180,
 }
