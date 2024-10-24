@@ -1,7 +1,7 @@
 .wrapper {
   height: 100vh;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-around;
   &__arcade {
     position: relative;
@@ -35,7 +35,7 @@
       position: absolute;
       width: 28%;
       border: solid 4px;
-      height: 20%;
+      height: 20.2%;
       border-radius: 15px;
       top: 26%;
       right: 34.5%;
