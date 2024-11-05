@@ -3,7 +3,6 @@ export const Players: Player[] = [
   { name: 'Arnaud', isAvailable: true, picture: '' },
   { name: 'Aymen', isAvailable: true, picture: '' },
   { name: 'Bertrand', isAvailable: true, picture: '' },
-  { name: 'Charles', isAvailable: true, picture: '' },
   { name: 'Elsa', isAvailable: true, picture: '' },
   { name: 'Gildas', isAvailable: true, picture: '' },
   { name: 'Mathieu', isAvailable: true, picture: '' },
@@ -12,6 +11,7 @@ export const Players: Player[] = [
   { name: 'Omar', isAvailable: true, picture: '' },
   { name: 'Rawan', isAvailable: false, picture: '' },
   { name: 'Salathiel', isAvailable: true, picture: '' },
+  { name: 'Valentyn', isAvailable: true, picture: '' },
   { name: 'Yi-Ching', isAvailable: true, picture: '' },
   { name: 'Yichao', isAvailable: true, picture: '' },
 ];
