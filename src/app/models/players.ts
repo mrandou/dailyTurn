@@ -1,5 +1,6 @@
 export const Players: Player[] = [
   { name: 'Alexis', isAvailable: true, picture: '' },
+  { name: 'AnneLaure', isAvailable: true, picture: '' },
   { name: 'Arnaud', isAvailable: true, picture: '' },
   { name: 'Aymen', isAvailable: true, picture: '' },
   { name: 'Bertrand', isAvailable: true, picture: '' },
