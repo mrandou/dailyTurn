@@ -1,16 +1,28 @@
 <div class="wrapper">
   <div class="wrapper__arcade">
-  
-    <img class="picture" [src]="arcadePicture" [ngStyle]="{'filter': randomColor}" alt="arcade">
+    <img
+      class="picture"
+      [src]="arcadePicture"
+      [ngStyle]="{ filter: randomColor }"
+      alt="arcade"
+    />
     <button class="joystic-button" (click)="startGame()"></button>
     <button class="coin-button" (click)="addCoin()"></button>
 
-    <div class="wrapper__arcade__screen">
+    <div class="wrapper__arcade--screen">
       <div *ngIf="coins > 0; else insertCoinBlock" class="user-section">
-        <img *ngIf="!currentSelectedPlayer; else selectedPlayerBlock" class="selected-player" [src]="randomPicture" />
+        <img
+          *ngIf="!currentSelectedPlayer; else selectedPlayerBlock"
+          class="selected-player"
+          [src]="randomPicture"
+        />
         <ng-template #selectedPlayerBlock>
-          <img class="selected-player" [src]="currentSelectedPlayer?.picture">
-          <img class="next-player" *ngIf="nextSelectedPlayer" [src]="nextSelectedPlayer?.picture">
+          <img class="selected-player" [src]="currentSelectedPlayer?.picture" />
+          <img
+            class="next-player"
+            *ngIf="nextSelectedPlayer"
+            [src]="nextSelectedPlayer?.picture"
+          />
           <div class="selected-player-name">
             {{ currentSelectedPlayer?.name }}
           </div>
@@ -29,17 +41,21 @@
     <div class="screen">
       <div *ngIf="coins > 0; else welcomeBlock">
         <div class="select-title">> Select player here</div>
-        <div 
-          *ngFor="let player of allPlayers; let i = index" 
-          class="player-name" 
-          [ngClass]="{ 'player-off': !player.isAvailable, 'current': player === currentSelectedPlayer, 'next': player === nextSelectedPlayer }"
+        <div
+          *ngFor="let player of allPlayers; let i = index"
+          class="player-name"
+          [ngClass]="{
+            'player-off': !player.isAvailable,
+            current: player === currentSelectedPlayer,
+            next: player === nextSelectedPlayer
+          }"
           (click)="switchPlayer(i)"
         >
           {{ player.name }}
         </div>
       </div>
       <ng-template #welcomeBlock>
-          <div>> Welcome to Daily Turn, please insert coin to play.</div>
+        <div>> Welcome to Daily Turn, please insert coin to play.</div>
       </ng-template>
     </div>
   </div>

@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ARCARDE_COLOR } from './models/arcade';
 import { Pictures } from './models/items';
 import { Player, Players } from './models/players';
+import { ArcadeService } from './services/arcade.service';
 import { AudioService } from './services/audio.service';
+import { SelectionService } from './services/selection.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   public arcadePicture: string = Pictures.ARCADE;
   public randomPicture: string = Pictures.BOX;
   public allPlayers: Player[] = [];
@@ -20,36 +22,37 @@ export class AppComponent {
   public randomColor = '';
   public isLastPlayer: boolean = false;
 
-  constructor(private audioService: AudioService) {
-    this.randomColor = this.getRandomArcadeColor();
+  constructor(
+    private audioService: AudioService,
+    private selectionService: SelectionService,
+    private arcadeService: ArcadeService
+  ) {}
+
+  /** Initialization */
+
+  ngOnInit(): void {
+    this.randomColor = this.arcadeService.getRandomArcadeColor();
     this.initPlayers();
-    this.loadImages();
-  }
-
-  private getRandomArcadeColor(): string {
-    const colors = ARCARDE_COLOR[this.getRandomNumber(ARCARDE_COLOR.length)];
-    this.changeBodyBackground(colors.background);
-    return `hue-rotate(${colors.arcade}deg)`;
-  }
-
-  private changeBodyBackground(color: string): void {
-    document.body.style.backgroundColor = color;
   }
 
   private initPlayers(): void {
     this.allPlayers = Players;
-    this.players = this.allPlayers.filter((p) => {
-      p.picture = this.getPlayerPicture(p.name);
-      return p.isAvailable;
-    });
+    this.players = this.selectionService.initializePlayers();
   }
+
+  public addCoin(): void {
+    this.audioService.insertCoin();
+    setTimeout(() => this.coins++, 1500);
+  }
+
+  /** Game */
 
   public startGame(): void {
     this.playJoysticAnimation();
 
     if (!this.canContinue()) return;
 
-    this.startNewSelection();
+    this.newSelection();
   }
 
   private canContinue(): boolean {
@@ -66,7 +69,7 @@ export class AppComponent {
     return true;
   }
 
-  private startNewSelection(): void {
+  private newSelection(): void {
     if (!this.currentSelectedPlayer)
       //In Game
       this.currentSelectedPlayer = this.getRandomPlayer();
@@ -78,13 +81,13 @@ export class AppComponent {
   }
 
   private getRandomPlayer(): Player {
-    const randomIndex = this.getRandomNumber(this.players.length);
-    const player = this.players[randomIndex];
+    const player = this.selectionService.getRandomPlayer(this.players);
     this.removePlayer(player);
     if (!this.players.length) this.isLastPlayer = true;
     return player;
   }
 
+  /** Player selection */
   public switchPlayer(index: number): void {
     const player = this.allPlayers[index];
     this.allPlayers[index].isAvailable = !player.isAvailable;
@@ -93,35 +96,9 @@ export class AppComponent {
     else this.players.push(player);
   }
 
-  public addCoin(): void {
-    this.audioService.insertCoin();
-    setTimeout(() => this.coins++, 1500);
-  }
-
-  public switchAudio(): void {
-    this.audioService.switchAudio();
-  }
-
-  public changeAudioVolume(up: boolean) {
-    this.audioService.changeAudioVolume(up);
-  }
-
-  private playJoysticAnimation(): void {
-    this.arcadePicture = Pictures.ARCADE_ON;
-    setTimeout(() => (this.arcadePicture = Pictures.ARCADE), 200);
-  }
-
   private removePlayer(player: Player): void {
     this.players = this.players.filter((p) => p != player);
     this.allPlayers[this.allPlayers.indexOf(player)].isAvailable = false;
-  }
-
-  private getPlayerPicture(player: string): string {
-    return `assets/users/${player}.png`;
-  }
-
-  private getRandomNumber(max: number) {
-    return Math.floor(Math.random() * max);
   }
 
   private gameOver(): void {
@@ -134,15 +111,18 @@ export class AppComponent {
     this.randomPicture = Pictures.BOX;
   }
 
-  private loadImages(): void {
-    const box = new Image();
-    box.src = Pictures.BOX;
-    for (let player of this.allPlayers) {
-      let img = new Image();
-      img.onload = () => {
-        console.log(`${img.src} loaded`);
-      };
-      img.src = this.getPlayerPicture(player.name);
-    }
+  /** Animation */
+
+  public switchAudio(): void {
+    this.audioService.switchAudio();
+  }
+
+  public changeAudioVolume(up: boolean) {
+    this.audioService.changeAudioVolume(up);
+  }
+
+  private playJoysticAnimation(): void {
+    this.arcadePicture = Pictures.ARCADE_ON;
+    setTimeout(() => (this.arcadePicture = Pictures.ARCADE), 200);
   }
 }
