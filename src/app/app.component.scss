@@ -59,7 +59,9 @@
 .wrapper-screen {
   height: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
   .screen {
     width: 35vw;
     height: 50vh;
@@ -71,6 +73,12 @@
     font-size: 15px;
     color: #06ff06;
     overflow: auto;
+  }
+
+  .squads {
+    img {
+      width: 50px;
+    }
   }
 
   .screen::-webkit-scrollbar-track {

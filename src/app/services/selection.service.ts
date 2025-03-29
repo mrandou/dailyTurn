@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Pictures } from '../models/items';
-import { Player, Players } from '../models/players';
+import { Player, Players, SquadType } from '../models/players';
 import { getRandomNumber } from '../utils/random';
 
 @Injectable({
@@ -16,6 +16,10 @@ export class SelectionService {
       p.picture = this.getPlayerPicture(p.name);
       return p.isAvailable;
     });
+  }
+
+  public selectPlayersFromSquad(squad: SquadType) {
+    return Players.filter((p) => p.squad === squad);
   }
 
   public getRandomPlayer(currentPlayers: Player[]): Player {

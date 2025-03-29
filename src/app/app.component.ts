@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ARCARDE_COLOR } from './models/arcade';
 import { Pictures } from './models/items';
-import { Player, Players } from './models/players';
+import { Player, Players, SQUADS } from './models/players';
 import { ArcadeService } from './services/arcade.service';
 import { AudioService } from './services/audio.service';
 import { SelectionService } from './services/selection.service';
@@ -21,6 +20,7 @@ export class AppComponent implements OnInit {
   public coins: number = 0;
   public randomColor = '';
   public isLastPlayer: boolean = false;
+  public squads = SQUADS;
 
   constructor(
     private audioService: AudioService,
@@ -69,6 +69,18 @@ export class AppComponent implements OnInit {
     return true;
   }
 
+  private gameOver(): void {
+    this.coins = 0;
+    this.isLastPlayer = false;
+    this.audioService.playGameOver();
+    this.currentSelectedPlayer = undefined;
+    this.nextSelectedPlayer = undefined;
+    this.initPlayers();
+    this.randomPicture = Pictures.BOX;
+  }
+
+  /** Player selection */
+
   private newSelection(): void {
     if (!this.currentSelectedPlayer)
       //In Game
@@ -80,14 +92,6 @@ export class AppComponent implements OnInit {
     if (!this.isLastPlayer) this.nextSelectedPlayer = this.getRandomPlayer();
   }
 
-  private getRandomPlayer(): Player {
-    const player = this.selectionService.getRandomPlayer(this.players);
-    this.removePlayer(player);
-    if (!this.players.length) this.isLastPlayer = true;
-    return player;
-  }
-
-  /** Player selection */
   public switchPlayer(index: number): void {
     const player = this.allPlayers[index];
     this.allPlayers[index].isAvailable = !player.isAvailable;
@@ -96,19 +100,21 @@ export class AppComponent implements OnInit {
     else this.players.push(player);
   }
 
+  public selectSquad(squadNb: number): void {
+    this.players = this.selectionService.selectPlayersFromSquad(squadNb);
+    this.allPlayers.filter((p) => (p.isAvailable = this.players.includes(p)));
+  }
+
+  private getRandomPlayer(): Player {
+    const player = this.selectionService.getRandomPlayer(this.players);
+    this.removePlayer(player);
+    if (!this.players.length) this.isLastPlayer = true;
+    return player;
+  }
+
   private removePlayer(player: Player): void {
     this.players = this.players.filter((p) => p != player);
     this.allPlayers[this.allPlayers.indexOf(player)].isAvailable = false;
-  }
-
-  private gameOver(): void {
-    this.coins = 0;
-    this.isLastPlayer = false;
-    this.audioService.playGameOver();
-    this.currentSelectedPlayer = undefined;
-    this.nextSelectedPlayer = undefined;
-    this.initPlayers();
-    this.randomPicture = Pictures.BOX;
   }
 
   /** Animation */

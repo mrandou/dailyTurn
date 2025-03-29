@@ -21,7 +21,7 @@
           <img
             class="next-player"
             *ngIf="nextSelectedPlayer"
-            [src]="nextSelectedPlayer?.picture"
+            [src]="nextSelectedPlayer.picture"
           />
           <div class="selected-player-name">
             {{ currentSelectedPlayer?.name }}
@@ -38,6 +38,13 @@
   </div>
 
   <div class="wrapper-screen">
+    <div class="squads">
+      <img
+        *ngFor="let squad of squads"
+        (click)="selectSquad(squad.type)"
+        src="assets/squads/arcade-button.svg"
+      />
+    </div>
     <div class="screen">
       <div *ngIf="coins > 0; else welcomeBlock">
         <div class="select-title">> Select player here</div>
