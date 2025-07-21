@@ -58,4 +58,10 @@ export const Players: Player[] = [
     picture: '',
     squad: SquadType.BATAILLON,
   },
+  {
+    name: 'Oumaima',
+    isAvailable: true,
+    picture: '',
+    squad: SquadType.BATAILLON,
+  },
 ];
