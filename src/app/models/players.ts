@@ -46,7 +46,7 @@ export const Players: Player[] = [
   { name: 'Rawan', isAvailable: false, picture: '' },
   { name: 'Valentyn', isAvailable: true, picture: '', squad: SquadType.ROCKET },
   {
-    name: 'Vitali',
+    name: 'Pavel',
     isAvailable: true,
     picture: '',
     squad: SquadType.BATAILLON,
